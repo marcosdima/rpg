@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using RandomSystem = System.Random;
 
 public class Character : LogicEntity, IExp, IEntity {

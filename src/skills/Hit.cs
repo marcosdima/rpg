@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 public class Hit : LogicSkill {
  
     public Hit() : base(SkillName.HIT) {}
