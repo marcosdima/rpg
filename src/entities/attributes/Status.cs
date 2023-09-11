@@ -6,6 +6,7 @@ public class Status {
     private Dictionary<Attribute, StatusField> statusValues;
 
     public Status(BaseAttributes attributes) {
+        this.statusValues = new Dictionary<Attribute, StatusField>();
         this.SetStatusValues(attributes);
     }
     private void SetStatusValues(BaseAttributes attributes) {

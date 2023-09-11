@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System;
 
 public class BaseAttributes {
-    public Dictionary<Attribute, int>? attributes;
+    public Dictionary<Attribute, int> attributes;
 
     public BaseAttributes() {
         // Because of Error CS8618.
@@ -33,6 +33,15 @@ public class BaseAttributes {
         this.ModifyAttribute(attribute, -1);
     }
     public int GetAttribute(Attribute attribute) {
-        return this.attributes[attribute];
+        int value;
+
+        if (attributes.TryGetValue(attribute, out value)) {}
+        else {
+            // This never should happen.
+            Console.WriteLine($"Attribute ({attribute}) does not exists... Wierd...");
+            value = -1;
+        }
+
+        return value;
     }
 }

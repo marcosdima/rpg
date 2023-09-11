@@ -5,15 +5,16 @@ public class Human : Species {
     public static readonly int HP = 100;
     public static readonly int MP = 100;
     public static readonly int DEFAULT_STATS_NUMBER = 10;
-    private static List<LogicSkill> defaultSkills; 
+    public static List<LogicSkill> defaultSkills = new List<LogicSkill>(); 
 
     public Human() : base(Human.HP, Human.MP, Human.DEFAULT_STATS_NUMBER) {
         // Sets the skills of Human if they're null.
-        if (Human.defaultSkills == null) this.SetDefaultSkills();
+        if (Human.defaultSkills == null) {
+            this.SetDefaultSkills();
+        }
     }
 
     private void SetDefaultSkills() {
-        Human.defaultSkills = new List<LogicSkill>();
         Human.defaultSkills.Add(new Hit());
     }
 

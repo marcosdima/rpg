@@ -1,6 +1,6 @@
 public abstract class LogicSkill : IExp {
     public readonly SkillName name;
-    private Character caster;
+    private Character? caster;
     private int uses = 0;
 
     // IExp //
@@ -27,7 +27,7 @@ public abstract class LogicSkill : IExp {
         this.caster = caster;
     }
 
-    public Character GetCaster() {
+    public Character? GetCaster() {
         return this.caster;
     }
     

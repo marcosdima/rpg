@@ -10,7 +10,7 @@ public class Hit : LogicSkill {
 
     override public int GetPower() {
         // It's negative beacuse it want to deacrese the HP of the target.
-        int casterATT = this.GetCaster().GetAttribute(Attribute.ATK) * -1;
+        int casterATT = (this.GetCaster()?.GetAttribute(Attribute.ATK) * -1) ?? 0;
         return casterATT;
     }
 

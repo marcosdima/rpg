@@ -21,6 +21,12 @@ public class Character : LogicEntity, IExp, IEntity {
         this.species = species;
         this.name = name;
 
+        // Warning CS8618.
+        this.baseAttributes = new BaseAttributes();
+        this.status = new Status(this.baseAttributes);
+        this.attributeHandler = new AttributeHandler(this.baseAttributes);
+        this.modifierHandler = new ModifierHandler(this.status);
+
         this.SetBaseAttributes();
         this.SetStatus();
         this.SetBaseSkills();
