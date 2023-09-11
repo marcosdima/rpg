@@ -1,4 +1,4 @@
-public abstract class LogicSkill : IExp {
+public abstract class LogicSkill : Usable, IExp {
     public readonly SkillName name;
     private Character? caster;
     private int uses = 0;
@@ -10,7 +10,7 @@ public abstract class LogicSkill : IExp {
     // IRarity //
     //private Rarity rarity;
 
-    public LogicSkill(SkillName name) {
+    public LogicSkill(SkillName name, Rarity rarity) : base(rarity) {
         this.name = name;
     } 
     

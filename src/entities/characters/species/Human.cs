@@ -20,7 +20,7 @@ public class Human : Species {
 
     public override List<LogicSkill> GetDefaultAbilities() {
         Random rand = new Random();
-        int numberOfSkills = rand.Next(1, Human.defaultSkills.Count);
+        int numberOfSkills = rand.Next(0, Human.defaultSkills.Count);
         List<LogicSkill> response = new List<LogicSkill>(numberOfSkills);
 
         // Adds the first 'numberOfSkills' skills of Human.defaultSkills.
