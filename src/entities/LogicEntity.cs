@@ -1,7 +1,6 @@
 public class LogicEntity {
     private static int entityCounter = 1;
-    private int id;
-    public int ID { get => id; private set => id = value; }
+    private int ID;
 
     public LogicEntity() {
         this.SetID();
@@ -16,4 +15,7 @@ public class LogicEntity {
         LogicEntity.entityCounter++;
     }
 
+    public int GetID() {
+        return this.ID;
+    }
 }
