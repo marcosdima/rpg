@@ -43,4 +43,8 @@ public class Item : Usable {
 
         return hashCode;
     }
+
+    public override string ToString() {
+        return this.name + "_" + this.Rarity;
+    }
 }
