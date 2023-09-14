@@ -8,16 +8,8 @@ public class Storage {
     
     public Storage(int size) {
         this.Size = size;
+        // Maybe it should be full of empty slots.
         this.space = new List<Slot>();
-    }
-
-    private void Remove(Item item, int cantity) {
-        Slot slotAux;
-
-        // Searchs for the item 
-        foreach (Slot slot in this.space) {
-            if (slot.Content == item) slotAux = slot;
-        }
     }
     
     /// <summary>
@@ -38,6 +30,10 @@ public class Storage {
         }
 
         return leftOvers;
+    }
+
+    private void Remove(Slot target) {
+        for (int i = 0; i < this.space.Count; i++) if (this.space[i].ID == target.ID) this.space.RemoveAt(i);
     }
 
     /// <summary>
@@ -75,6 +71,18 @@ public class Storage {
         List<ISlot> result = new List<ISlot>();
 
         foreach (Slot slot in this.space) result.Add((ISlot) slot);
+
+        return result;
+    }
+
+    public Item? GetItem(ISlot slotTarget) {
+        bool flagDontExist = false;
+        Item result = null;
+
+        // Searchs the slot target and takes an element.
+        foreach (Slot slot in this.space) if (slotTarget.ID == slot.ID) {
+           // TODO
+        }
 
         return result;
     }
