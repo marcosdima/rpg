@@ -56,20 +56,20 @@ public class Slot : ISlot {
     /// Takes a specified number (positive) of items from the slot's quantity.
     /// </summary>
     /// <param name="took">The number of items to take.</param>
-    /// <returns>The actual number of items taken from the slot.</returns>
-    public int Take(int took) {
-        int itemsTook = 0;
+    /// <returns>A list of items taken from the Slot.</returns>
+    public List<Item> Take(int took) {
+        List<Item> result = new List<Item>();
 
         // Checks if the newQuantity is positive.
-        if (took <= 0) return 0;
+        if (took <= 0) return result;
 
         // While quantity doesn't reach 0 and itemsTook is lower than took, decreases quantity.
-        while (this.quantity > 0 && itemsTook < took) {
+        while (this.quantity > 0 && result.Count < took) {
             this.quantity--;
-            itemsTook++;
+            result.Add(this.content.Copy());
         }
  
-        return itemsTook;
+        return result;
     }
 
     public override bool Equals(object? obj){

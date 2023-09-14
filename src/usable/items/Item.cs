@@ -22,7 +22,7 @@ public class Item : Usable {
 
     public override bool Equals(object? obj){
         bool result;
-        
+
         // Checks if obj its null or it's from a different class.
         if (obj == null || this.GetType() != obj.GetType()) result = false;
         else {

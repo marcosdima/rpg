@@ -32,8 +32,21 @@ public class Storage {
         return leftOvers;
     }
 
-    private void Remove(Slot target) {
-        for (int i = 0; i < this.space.Count; i++) if (this.space[i].ID == target.ID) this.space.RemoveAt(i);
+    /// <summary>
+    /// Removes an element from the 'space' list based on a matching 'ID' property in the 'Slot' class.
+    /// </summary>
+    /// <param name="target">The 'Slot' object to match and remove from the list.</param>
+    private void Remove(int id) {
+        for (int i = 0; i < this.space.Count; i++) 
+            if (this.space[i].ID == id) this.space.RemoveAt(i);
+    }
+
+    /// <summary>
+    /// Removes a list of elements by its ID. (The list must have valid ID's).
+    /// </summary>
+    /// <param name="listOfIds">List of ID's.</param>
+    private void Remove(List<int> listOfIds) {
+        foreach (int id in listOfIds) this.Remove(id);
     }
 
     /// <summary>
@@ -44,7 +57,7 @@ public class Storage {
     public int Add(Item item, int quantity) {
         // Searchs for all the slots wich has 'item' as content and increse its quantity.
         foreach (Slot slot in this.space) {
-            if (slot.Content == item && quantity > 0) {
+            if (slot.Content.Equals(item) && quantity > 0) {
                 quantity = slot.IncreaseQuantity(quantity);
             }
         }
@@ -75,14 +88,31 @@ public class Storage {
         return result;
     }
 
-    public Item? GetItem(ISlot slotTarget) {
-        bool flagDontExist = false;
-        Item result = null;
+    public List<Item> GetItems(Item target, int quantity) {
+        bool flagDontExist = true;
+        List<Item> result = new List<Item>();
+        List<Item> auxList;
+        List<int> idDelete = new List<int>();
 
         // Searchs the slot target and takes an element.
-        foreach (Slot slot in this.space) if (slotTarget.ID == slot.ID) {
-           // TODO
+        foreach (Slot slot in this.space) if (slot.Content.Equals(target) && quantity > 0) {
+            // Found at least an slot...
+            flagDontExist = false;
+
+            // Takes the quantity of items wanted or at least the quantity that this slot has..
+            auxList = slot.Take(quantity);
+            // Updates the quantity, to check if it has to keep looking for items...
+            quantity -= auxList.Count;
+            // Concatenates the listAux to the result list.
+            result.AddRange(auxList);
+
+            // Checks if the slot is empty...
+            if (slot.IsEmpty()) idDelete.Add(slot.ID);
         }
+
+        if (flagDontExist) Console.WriteLine("Target doesn't exists in this storage...");
+        // If idDelete was setted, then that slot was empty...
+        else if (idDelete.Count > 0) this.Remove(idDelete);
 
         return result;
     }
