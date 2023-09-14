@@ -19,12 +19,18 @@ public class Storage {
             if (slot.Content == item) slotAux = slot;
         }
     }
-  
+    
+    /// <summary>
+    /// Adds a new item to the storage while ensuring there is enough space.
+    /// </summary>
+    /// <param name="item">The item to be added.</param>
+    /// <param name="quantity">The quantity of the item to add.</param>
+    /// <returns>The quantity of items that couldn't be added due to insufficient space.</returns>
     private int AddNewItem(Item item, int quantity) {
         Slot auxSlot;
         int leftOvers = quantity;
 
-        // Creates all the slots wich are needed, while storage has space available and has items to add (leftOvers > 0).
+        // Creates all the slots needed, while storage has available space and has items to add (leftOvers > 0).
         while (leftOvers > 0 && this.totalSpace > this.Count) {
             auxSlot = new Slot(item);
             leftOvers = auxSlot.IncreaseQuantity(leftOvers);
