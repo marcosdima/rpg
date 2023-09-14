@@ -11,6 +11,15 @@ public class Item : Usable {
 
     public Item(ItemName name, Rarity rarity) : this(name, rarity, 1) {}
 
+    /// <summary>
+    /// Creates a copy of the Item object.
+    /// </summary>
+    /// <returns>A new item object that is a copy of itself.</returns>
+    public Item Copy() {
+        Item copy = new Item(this.name, this.Rarity, this.MAX_STACK);
+        return copy;
+    }
+
     public override bool Equals(object? obj){
         bool result;
         
