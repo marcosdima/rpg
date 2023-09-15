@@ -1,4 +1,4 @@
-public abstract class LogicSkill : Usable, IExp {
+public abstract class LogicSkill : Rarity, IExp {
     public readonly SkillName name;
     private Character? caster;
     private int uses = 0;
@@ -10,7 +10,7 @@ public abstract class LogicSkill : Usable, IExp {
     // IRarity //
     //private Rarity rarity;
 
-    public LogicSkill(SkillName name, Rarity rarity) : base(rarity) {
+    public LogicSkill(SkillName name, RarityGrade rarity) : base(rarity) {
         this.name = name;
     } 
     
@@ -35,23 +35,12 @@ public abstract class LogicSkill : Usable, IExp {
     public int GetExp() {
         return this.exp;
     }
+    
     public int GetLevel() {
         return this.level;
     }
+    
     public void IncreaseLevel() {
         // TO DO //
     }
-
-    /*
-    // IRarity //
-    public Rarity GetRarity() {
-        return this.rarity;
-    }
-    public void UpgradeRarity() {
-        this.rarity.Upgrade();
-    }
-    public void DegradeRarity() {
-        this.rarity.Degrade();
-    }
-    */
 }

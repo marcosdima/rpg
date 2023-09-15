@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 public class Hit : LogicSkill {
  
-    public Hit() : base(SkillName.HIT, Rarity.LOW) {}
+    public Hit() : base(SkillName.HIT, RarityGrade.LOW) {}
 
     override protected void UseOn(Character ch) {
         ch.RecieveModifier(new Damage(this.GetPower()));

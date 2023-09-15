@@ -1,4 +1,4 @@
-public enum Rarity {
+public enum RarityGrade {
     LOW,
     MEDIUM,
     HIGH
