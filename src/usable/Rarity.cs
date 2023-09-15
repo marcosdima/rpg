@@ -1,4 +1,4 @@
-public abstract class Rarity {
+public class Rarity {
     private RarityGrade rarity;
     public static RarityGrade LOWEST_RARITY = RarityGrade.LOW;
     public static RarityGrade HIGHEST_RARITY = RarityGrade.HIGH;
