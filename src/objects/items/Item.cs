@@ -17,29 +17,16 @@ public abstract class Item {
     /// <returns>A new item object that is a copy of itself.</returns>
     public abstract Item Copy();
 
-    public override bool Equals(object? obj){
-        bool result;
-
-        // Checks if obj its null or it's from a different class.
-        if (obj == null || this.GetType() != obj.GetType()) result = false;
-        else {
-            Item itemAux = (Item) obj;
-            // If has the same name and rarity, they're equals.
-            result = (itemAux.Name == this.Name);
-        }
-
-        return result;
+    public static bool operator ==(Item obj1, Item obj2) {
+        return obj1.Equals(obj2);
     }
 
-    public override int GetHashCode(){
-        // A prime number initial value to avoid frequent collisions.
-        int hashCode = 17;
-        hashCode = hashCode * 31 + this.name.GetHashCode();
-
-        return hashCode;
+    public static bool operator !=(Item obj1, Item obj2) {
+        return !(obj1.Equals(obj2));
     }
 
-    public override string ToString() {
-        return this.name.ToString();
-    }
+    // Abstract methods.
+    public abstract override bool Equals(object? obj);
+    public abstract override int GetHashCode();
+    public abstract override string ToString();
 }
