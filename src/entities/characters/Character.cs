@@ -47,16 +47,16 @@ public class Character : LogicEntity, IExp, IEntity {
         RandomSystem rand = new RandomSystem();
         int index = rand.Next(0, attributes.Length);
         while (this.attributeHandler.HasUpgrades()) {
-            // Si, medio tosco.
+            // Si, medio tosco. (Mirar proximo comentario)
             if ((attributes[index] != Attribute.HP) && (attributes[index] != Attribute.MP))
                 this.attributeHandler.UpgradeAttribute(attributes[index], 1);
             index = rand.Next(0, attributes.Length);
         }
 
         // Sets brutally HP and MP.
-        this.attributeHandler.AddUpgrades(this.species.GetHP());
+        this.attributeHandler.AddUpgrades(this.species.GetHP() + this.species.GetMP());
         this.attributeHandler.UpgradeAttribute(Attribute.HP, this.species.GetHP());
-        this.attributeHandler.UpgradeAttribute(Attribute.HP, this.species.GetMP());
+        this.attributeHandler.UpgradeAttribute(Attribute.MP, this.species.GetMP());
     }
     private void SetStatus() {
         this.status = new Status(this.baseAttributes);
