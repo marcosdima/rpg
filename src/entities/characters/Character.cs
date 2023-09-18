@@ -67,7 +67,7 @@ public class Character : LogicEntity, IExp, IEntity {
         foreach (LogicSkill skill in this.skills) skill.SetCaster(this);
     }
     public int GetAttribute(Attribute att) {
-        return this.status.GetAttribute(att);
+        return this.status.GetStatusField(att).GetCurrentValue();
     }
 
     // IEntity //
