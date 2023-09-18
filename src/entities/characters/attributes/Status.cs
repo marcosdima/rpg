@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System;
-using RandomSystem = System.Random;
-
 public class Status {
     private Dictionary<Attribute, StatusField> statusValues;
 
@@ -27,7 +23,7 @@ public class Status {
         }
     }
 
-    public void AddStatusField(Attribute attribute, int value) {}
+    public void AddStatusField(Attribute attribute, int value) {} // TODO
     
     /// <summary>
     /// Gets the attribute 'attribute' and applies a modification of 'magnitude' on it.
@@ -48,7 +44,7 @@ public class Status {
         return this.statusValues[attribute];
     }
     
-    public void Reset() {}
+    public void Reset() {} // TODO
     
     /// <summary>
     /// Retrieves the status values for all attributes as a dictionary.
@@ -64,5 +60,4 @@ public class Status {
 
         return response;
     }
-    
 }
