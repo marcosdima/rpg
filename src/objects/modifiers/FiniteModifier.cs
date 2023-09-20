@@ -1,14 +1,11 @@
-public abstract class FiniteModifier : Modifier {
+public abstract class FiniteModifier : RemovableModifier {
     private int uses = 0;
-    private int resetUses = 0;
 
     // Properties.
     public int Uses { get => this.uses; }
-    public int ResetPower { get => resetUses; set => resetUses = value; }
 
     public FiniteModifier(Attribute attribute, int power, int uses) : base(attribute, power) {
         this.uses = uses;
-        this.resetUses = power * -1;
     }
 
     /// <summary>

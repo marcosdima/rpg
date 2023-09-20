@@ -14,7 +14,7 @@ public class ModifierHandler {
     }
 
     // Applies modifiers by polymorphism //
-    private void ApplyModifier(FiniteModifier mod) {
+    private void ApplyModifier(RemovableModifier mod) {
         // Sets the reset power as the opposite of the actual magnitude applied on the field.
         mod.ResetPower = this.status.ModifyStatusField(mod.Att, mod.Power) * -1;
     }

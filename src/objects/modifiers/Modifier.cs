@@ -1,4 +1,4 @@
-public abstract class Modifier {
+public class Modifier : IModifier {
     private Attribute attribute;
     private int power;
     private int id;
