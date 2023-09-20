@@ -1,4 +1,3 @@
-using System;
 public class StatusField : IStatusField {
     private int baseValue;
     private int currentValue;
@@ -10,9 +9,19 @@ public class StatusField : IStatusField {
 
     public StatusField(int value) : this(value, value) {}
 
-    public void ModifyCurrentValue(int magnitude) {
+    public int ModifyCurrentValue(int magnitude) {
         // Current value must be >= 0.
-        this.currentValue = Math.Max(this.currentValue + magnitude, 0);
+        int newValue = magnitude + currentValue;
+
+        if (newValue < 0) {
+            // NewValue is negative, so sets magnitude to as the actual modification magnitude...
+            magnitude = magnitude - newValue;
+        }
+
+        this.currentValue += magnitude;
+
+        // Returns the actual modification value.
+        return magnitude;
     }
 
     public int GetCurrentValue() {
@@ -22,5 +31,4 @@ public class StatusField : IStatusField {
     public int GetBaseValue() {
         return this.baseValue;
     }
-
 }

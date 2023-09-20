@@ -69,7 +69,9 @@ public class Character : LogicEntity, IExp, IEntity {
     public int GetAttribute(Attribute att) {
         return this.status.GetStatusField(att).GetCurrentValue();
     }
-
+    public void ApplyModifiers() {
+        this.modifierHandler.ApplyModifiers();
+    }
     // IEntity //
     public void LearnSkill(LogicSkill skill) {
         // No chequea si esta habilidad ya existe.
@@ -90,8 +92,6 @@ public class Character : LogicEntity, IExp, IEntity {
     }
     public void RecieveModifier(Modifier mod) {
         this.modifierHandler.AddModifier(mod);
-        // NODEBERÏASERASI//
-        this.modifierHandler.ApplyModifiers();
     }
 
     // IExp //

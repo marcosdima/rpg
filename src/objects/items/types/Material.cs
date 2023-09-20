@@ -7,7 +7,7 @@ public class Material : Item {
         return new Material(this.Name, this.MAX_STACK);
     }
 
-    public override bool Equals(object? obj){
+    public override bool Equals(object? obj) {
         bool result;
 
         // Checks if obj its null or it's from a different class.

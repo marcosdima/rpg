@@ -30,9 +30,8 @@ public class Status {
     /// </summary>
     /// <param name="attribute">Attribute target.</param>
     /// <param name="magnitude">Magnitude of the modification.</param>
-    public void ModifyStatusField(Attribute attribute, int magnitude) {
-        // 
-        this.statusValues[attribute].ModifyCurrentValue(magnitude);
+    public int ModifyStatusField(Attribute attribute, int magnitude) {
+        return this.statusValues[attribute].ModifyCurrentValue(magnitude);
     }
     
     /// <summary>
