@@ -14,6 +14,4 @@ public interface IEquipable {
     /// <returns>True if the item is equipable. Otherwise, false.</returns>
     public bool Equipable();
 
-    public void Equip(Character ch);
-
 }

@@ -5,9 +5,10 @@ using RandomSystem = System.Random;
 public class Character : LogicEntity, IExp, IEntity {
 
     private Species species;
-    private BaseAttributes baseAttributes;
+    private BaseAttributes baseAttributes = new BaseAttributes(); 
     private Status status;
     private List<LogicSkill> skills;
+    private Armor armor;
     private ModifierHandler modifierHandler;
     private AttributeHandler attributeHandler;
 
@@ -22,7 +23,7 @@ public class Character : LogicEntity, IExp, IEntity {
         this.name = name;
 
         // Warning CS8618.
-        this.baseAttributes = new BaseAttributes();
+        this.armor = new Armor(this);
         this.status = new Status(this.baseAttributes);
         this.attributeHandler = new AttributeHandler(this.baseAttributes);
         this.modifierHandler = new ModifierHandler(this.status);
@@ -71,6 +72,12 @@ public class Character : LogicEntity, IExp, IEntity {
     }
     public void ApplyModifiers() {
         this.modifierHandler.ApplyModifiers();
+    }
+    public Equipment? AddEquipment(Equipment newPart) {
+        return this.armor.AddEquipment(newPart);
+    }
+    public Equipment? RemoveEquipment(EquipmentType target) {
+        return this.armor.RemoveEquipment(target);
     }
     // IEntity //
     public void LearnSkill(LogicSkill skill) {

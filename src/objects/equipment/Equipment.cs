@@ -1,16 +1,18 @@
-public abstract class Equipment : IEquipable {
+public class Equipment : IEquipable {
     private int maxUses = 0;   
     private int usesLeft = 0;
-    private Character? wearer;
+    private EquipmentType type;
     // This modifiers will be applied to the wearer.
     private List<RemovableModifier> modifiers = new List<RemovableModifier>();
 
     // Properties.
     public int UsesLeft { get => usesLeft; }
     public int MaxUses { get => maxUses; }
+    public EquipmentType Type { get => this.type; }
 
-    public Equipment(int maxUses) {
+    public Equipment(EquipmentType type, int maxUses) {
         this.SetMaxUses(maxUses);
+        this.type = type;
     }
 
     /// <summary>
@@ -38,14 +40,8 @@ public abstract class Equipment : IEquipable {
         if (this.usesLeft > 0) this.usesLeft--;
     }
 
-    public void Equip(Character ch) {
-        if (this.wearer != null) this.Unequip();
-        this.wearer = ch;
-        foreach(RemovableModifier mod in this.modifiers) ch.RecieveModifier(mod);
-    }
-
-    public void Unequip() {
-        foreach(RemovableModifier mod in this.modifiers) this.wearer?.RecieveModifier(mod.Reset());
+    public void AddModifier(RemovableModifier modifier) {
+        this.modifiers.Add(modifier);
     }
 
     // IEquipment //

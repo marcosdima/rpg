@@ -1,3 +1,4 @@
 public enum ItemName {
-    HEAL_POTION
+    HEAL_POTION,
+    WOODEN_SWORD
 }
