@@ -18,7 +18,7 @@ public class Storage {
     /// <param name="item">The item to be added.</param>
     /// <param name="quantity">The quantity of the item to add.</param>
     /// <returns>The quantity of items that couldn't be added due to insufficient space.</returns>
-    private int AddNewItem(Item item, int quantity) {
+    private int AddNewItem(ItemReference item, int quantity) {
         Slot auxSlot;
         int leftOvers = quantity;
 
@@ -54,7 +54,7 @@ public class Storage {
     /// </summary>
     /// <param name="item">The item to be added.</param>
     /// <param name="quantity">The quantity of items to be added.</param>
-    public int Add(Item item, int quantity) {
+    public int Add(ItemReference item, int quantity) {
         // Searchs for all the slots wich has 'item' as content and increse its quantity.
         foreach (Slot slot in this.space) {
             if (slot.Content.Equals(item) && quantity > 0) {
@@ -72,7 +72,7 @@ public class Storage {
     /// Adds an item to the Storage if there is available space.
     /// </summary>
     /// <param name="item">The item to be added.</param>
-    public int Add(Item item) {
+    public int Add(ItemReference item) {
         return this.Add(item, 1);
     }
 
@@ -88,23 +88,18 @@ public class Storage {
         return result;
     }
 
-    public List<Item> GetItems(Item target, int quantity) {
+    public int GetItems(ItemReference target, int quantity) {
         bool flagDontExist = true;
-        List<Item> result = new List<Item>();
-        List<Item> auxList;
         List<int> idDelete = new List<int>();
+        int quantityTaken = 0;
 
         // Searchs the slot target and takes an element.
-        foreach (Slot slot in this.space) if (slot.Content.Equals(target) && quantity > 0) {
-            // Found at least an slot...
+        foreach (Slot slot in this.space) if ((slot.Content == target) && (quantityTaken < quantity)) {
+            // Found at least one slot...
             flagDontExist = false;
 
             // Takes the quantity of items wanted or at least the quantity that this slot has..
-            auxList = slot.Take(quantity);
-            // Updates the quantity, to check if it has to keep looking for items...
-            quantity -= auxList.Count;
-            // Concatenates the listAux to the result list.
-            result.AddRange(auxList);
+            quantityTaken += slot.Take(quantity - quantityTaken);
 
             // Checks if the slot is empty...
             if (slot.IsEmpty()) idDelete.Add(slot.ID);
@@ -114,6 +109,6 @@ public class Storage {
         // If idDelete was setted, then that slot was empty...
         else if (idDelete.Count > 0) this.Remove(idDelete);
 
-        return result;
+        return quantityTaken;
     }
 }

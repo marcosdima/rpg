@@ -5,6 +5,7 @@ public class Rarity {
 
     // Property
     public RarityGrade Grade { get => rarity; private set => rarity = value; }
+    public int Interger {get => (int) Grade; }
 
     public Rarity(RarityGrade rarity) {
         this.rarity = rarity;

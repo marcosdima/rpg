@@ -1,0 +1,12 @@
+{
+    "Items": {
+        "RECOVERY": {
+            "POTION": {
+                "HEAL_POTION": {
+                    "Name": "Heal Potion",
+                    "Description": "Restores a portion of drinker's HP."
+                }
+            }
+        }
+    }
+}

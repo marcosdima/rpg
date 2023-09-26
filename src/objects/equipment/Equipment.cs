@@ -1,4 +1,4 @@
-public class Equipment : IEquipable {
+public class Equipment : Item, IEquipable {
     private int maxUses = 0;   
     private int usesLeft = 0;
     private EquipmentType type;
@@ -10,7 +10,7 @@ public class Equipment : IEquipable {
     public int MaxUses { get => maxUses; }
     public EquipmentType Type { get => this.type; }
 
-    public Equipment(EquipmentType type, int maxUses) {
+    public Equipment(RarityGrade rarity, EquipmentType type, int maxUses) : base(rarity) {
         this.SetMaxUses(maxUses);
         this.type = type;
     }

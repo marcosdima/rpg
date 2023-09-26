@@ -1,0 +1,14 @@
+{
+    "RECOVERY": {
+        "POTION": {
+            "HEAL_POTION": {
+                "Power": 10,
+                "Attribute": "HP"
+            },
+            "MANA_POTION": {
+                "Power": 10,
+                "Attribute": "MP"
+            }
+        }   
+    }
+}

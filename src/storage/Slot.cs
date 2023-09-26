@@ -1,21 +1,21 @@
 public class Slot : ISlot {
     private static int slots = 1;
-    private Item content;
+    private ItemReference content;
     private int quantity = 0;
     private int id;
 
     // Properties.
-    public Item Content { get => this.content; }
+    public ItemReference Content { get => this.content; }
     public int Quantity { get => this.quantity; }
     public int ID { get => this.id; }
 
-    public Slot(Item item, int quantity) {
+    public Slot(ItemReference item, int quantity) {
         this.content = item;
         this.IncreaseQuantity(quantity);
         this.SetID();
     }
 
-    public Slot(Item item) : this(item, 0) {}
+    public Slot(ItemReference item) : this(item, 0) {}
 
     /// <summary>
     /// Sets the unique ID for the current slot and increments the global slot counter.
@@ -56,20 +56,21 @@ public class Slot : ISlot {
     /// Takes a specified number (positive) of items from the slot's quantity.
     /// </summary>
     /// <param name="took">The number of items to take.</param>
-    /// <returns>A list of items taken from the Slot.</returns>
-    public List<Item> Take(int took) {
-        List<Item> result = new List<Item>();
+    /// <returns>The actual number of items which were taken.</returns>
+    public int Take(int wanted) {
+        int quantityTaken = 0;
 
         // Checks if the newQuantity is positive.
-        if (took <= 0) return result;
+        if (wanted <= 0) return quantityTaken;
 
         // While quantity doesn't reach 0 and itemsTook is lower than took, decreases quantity.
-        while (this.quantity > 0 && result.Count < took) {
-            this.quantity--;
-            result.Add(this.content.Copy());
-        }
+        if (wanted > quantity) quantityTaken = this.quantity;
+        else quantityTaken = wanted;
+
+        // Updates quantity attribute.
+        this.quantity = Math.Max(this.quantity - wanted, 0);
  
-        return result;
+        return quantityTaken;
     }
 
     public override bool Equals(object? obj){

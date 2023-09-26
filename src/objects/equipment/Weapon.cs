@@ -4,9 +4,10 @@ public class Weapon : Equipment {
     // Properties.
     public int Power { get; }
 
-    public Weapon(int power, int maxUses) : base(EquipmentType.WEAPON, maxUses) {
+    public Weapon(RarityGrade rarity, int power, int maxUses) : base(rarity, EquipmentType.WEAPON, maxUses) {
         // Adds the ATK modifier...
         this.AddModifier(new RemovableModifier(Attribute.ATK, power));
+        this.power = power;
     }
 
 }
