@@ -1,5 +1,9 @@
 {
-    "HIT": {
-        
+    "SIMPLE_SKILL": {
+        "HIT": {
+            "Attribute": "ATK",
+            "Modifiers": ["DAMAGE"],
+            "Uses": 1
+        }
     }
 }

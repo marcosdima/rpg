@@ -15,7 +15,7 @@ public class Human : Species {
     }
 
     private void SetDefaultSkills() {
-        Human.defaultSkills.Add(new Hit());
+        
     }
 
     public override List<LogicSkill> GetDefaultAbilities() {

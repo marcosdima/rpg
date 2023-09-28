@@ -9,6 +9,8 @@ public class RemovableModifier : Modifier {
     }
 
     public Modifier Reset() {
-        return new Modifier(this.Att, this.resetPower);
+        return new RemovableModifier(this.Att, this.resetPower);
     }
+
+    public override void SetPower(int power) => this.Power = power;
 }
