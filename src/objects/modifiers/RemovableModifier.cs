@@ -1,16 +1,14 @@
 public class RemovableModifier : Modifier {
     private int resetPower = 0;
 
-    // Properties.
-    public int ResetPower { get => resetPower; set => resetPower = value; }
-
-    public RemovableModifier(Attribute attribute, int power) : base(attribute, power) {
+    public RemovableModifier(Attribute attribute, int power, ModifierAction buff) : base(attribute, power, buff) {
         this.resetPower = power * -1;
     }
 
     public Modifier Reset() {
-        return new RemovableModifier(this.Att, this.resetPower);
+        ModifierAction actionReset = ModifierAction.DEBUFF;
+        if (this.IsBuff == ModifierAction.DEBUFF) actionReset = ModifierAction.BUFF; 
+        
+        return new RemovableModifier(this.Att, this.Power, actionReset);
     }
-
-    public override void SetPower(int power) => this.Power = power;
 }

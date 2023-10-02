@@ -2,7 +2,14 @@
     "SIMPLE_SKILL": {
         "HIT": {
             "Attribute": "ATK",
-            "Modifiers": ["DAMAGE"],
+            "Modifiers": [
+                {
+                    "Type": "MODIFIER",
+                    "Att": "HP",
+                    "Action": "DEBUFF",
+                    "Percentage": 100
+                }
+            ],
             "Uses": 1
         }
     }

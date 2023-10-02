@@ -4,7 +4,7 @@ public class SkillStats {
     public int Uses { get; set; } = 1;
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public Attribute Attribute { get; set; } = Attribute.ATK;
+    public Attribute? Attribute { get; set; }
 
-    public List<string>? Modifiers { get; set; }
+    public List<ModifierStat>? Modifiers { get; set; }
 }

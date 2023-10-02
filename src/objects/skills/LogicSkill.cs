@@ -2,14 +2,13 @@ public abstract class LogicSkill : IExp {
     private Character? caster;
     private int uses = 0;
 
-
     // IExp //
     private int exp = 0;
     private int level = 0;
 
     // Rarity //
     private Rarity rarity;
-    private Rarity Rarity { get => rarity; }
+    public Rarity Rarity { get => rarity; }
 
     public LogicSkill(RarityGrade rarity) {
         this.rarity = new Rarity(rarity);

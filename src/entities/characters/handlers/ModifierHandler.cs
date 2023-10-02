@@ -15,8 +15,8 @@ public class ModifierHandler {
 
     // Applies modifiers by polymorphism //
     private void ApplyModifier(RemovableModifier mod) {
-        // Sets the reset power as the opposite of the actual magnitude applied on the field.
-        mod.ResetPower = this.status.ModifyStatusField(mod.Att, mod.Power) * -1;
+        // Sets the reset power as the actual magnitude applied on the field.
+        mod.Power = this.status.ModifyStatusField(mod.Att, mod.Power);
     }
     
     private void ApplyModifier(Modifier mod) {
@@ -45,12 +45,14 @@ public class ModifierHandler {
     public void ResetModifier(Modifier mod) {
         FiniteModifier? modAux = null;
 
-        // Finds
+        // Finds the mofier target.
         foreach (FiniteModifier target in this.modifierList) if (target == mod) modAux = target;
 
         if (modAux == null) return;
         
-        this.status.ModifyStatusField(modAux.Att, modAux.ResetPower);
+        // Gets the reset value.
+        Modifier reset = modAux.Reset();
+        this.status.ModifyStatusField(reset.Att, reset.Power);
     } 
 
     /// <summary>

@@ -1,17 +1,20 @@
-public abstract class Modifier : IModifier {
+public class Modifier : IModifier {
     private Attribute attribute;
     private int power;
+    private ModifierAction buff;
     private int id;
     private static int ModifierCount = 1;
 
     // Properties.
     public Attribute Att { get => this.attribute; }
-    public int Power { get => this.power; protected set => this.power = value; } 
+    public int Power { get => this.power; set => this.power = value; } 
     public int ID { get => this.id; }
+    public ModifierAction IsBuff { get => this.buff; set => this.buff = value; }
 
-    public Modifier(Attribute attribute, int power) {
-        this.power = power;
+    public Modifier(Attribute attribute, int power, ModifierAction buff) {
         this.attribute = attribute;
+        this.buff = buff;
+        this.SetPower(power);
         this.SetID();
     }
 
@@ -20,7 +23,12 @@ public abstract class Modifier : IModifier {
         Modifier.ModifierCount++;
     }
 
-    public abstract void SetPower(int power);
+    public void SetPower(int power) {
+        // If its a debuff, sets the power as negative.
+        if (this.buff == ModifierAction.DEBUFF) power *= -1;
+
+        this.power = power;
+    }
 
     // Comparation.
     public static bool operator ==(Modifier? obj1, Modifier? obj2) {

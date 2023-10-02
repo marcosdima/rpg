@@ -4,7 +4,7 @@ public abstract class FiniteModifier : RemovableModifier {
     // Properties.
     public int Uses { get => this.uses; }
 
-    public FiniteModifier(Attribute attribute, int power, int uses) : base(attribute, power) {
+    public FiniteModifier(Attribute attribute, int power, int uses, ModifierAction buff) : base(attribute, power, buff) {
         this.uses = uses;
     }
 

@@ -6,7 +6,7 @@ public class Weapon : Equipment {
 
     public Weapon(RarityGrade rarity, int power, int maxUses) : base(rarity, EquipmentType.WEAPON, maxUses) {
         // Adds the ATK modifier...
-        this.AddModifier(new RemovableModifier(Attribute.ATK, power));
+        this.AddModifier(new RemovableModifier(Attribute.ATK, power, ModifierAction.BUFF));
         this.power = power;
     }
 

@@ -30,24 +30,40 @@ public class Translator {
         return actualObject;
     }
 
-    private List<Modifier> GetModifiers(List<string> modifierTypes) {
+    public List<Modifier> GetModifiers(List<ModifierStat> modifierTypes) {
         List<Modifier> modifiers = new List<Modifier>();
         
-        foreach (var modifierTypeString in modifierTypes) {
-            if (Enum.TryParse(modifierTypeString, true, out ModifierType modifierType)) {
-                switch (modifierType) {
-                    case ModifierType.DAMAGE:
-                        modifiers.Add(new Damage(0));
-                        break;
-                    default:
-                        Console.WriteLine($"Error: ModfierType: {modifierType} doesn't exists...");
-                        break;
-                }
+        foreach (var modifierType in modifierTypes) {
+            switch (modifierType.Type) {
+                case ModifierType.MODIFIER:
+                    modifiers.Add(new Modifier(modifierType.Att, 0, modifierType.Action));
+                    break;
+                default:
+                    Console.WriteLine($"Error: ModfierType: {modifierType} doesn't exists...");
+                    break;
             }
 
         }
 
         Console.WriteLine(modifiers[0]);
+
+        return modifiers;
+    }
+
+    public Dictionary<Modifier, int> GetSkillModifiers(List<ModifierStat> modifierTypes) {
+        Dictionary<Modifier, int> modifiers = new Dictionary<Modifier, int>();
+        
+        foreach (var modifierType in modifierTypes) {
+            switch (modifierType.Type) {
+                case ModifierType.MODIFIER:
+                    modifiers.Add(new Modifier(modifierType.Att, 0, modifierType.Action), modifierType.Percentage);
+                    break;
+                default:
+                    Console.WriteLine($"Error: ModfierType: {modifierType} doesn't exists...");
+                    break;
+            }
+
+        }
 
         return modifiers;
     }
@@ -77,7 +93,8 @@ public class Translator {
         JsonElement element = this.GetJsonObject(skillPath, target.ToString());
         SkillStats? stats = JsonSerializer.Deserialize<SkillStats>(element.GetRawText());
 
-        List<Modifier> modifiers = this.GetModifiers(stats?.Modifiers ?? new List<string>());
+        // Sets a dictionary to instantiate the skill...
+        Dictionary<Modifier, int> modifiers = this.GetSkillModifiers(stats?.Modifiers ?? new List<ModifierStat>());
 
         switch (target.Type) {
             case SkillCategory.SIMPLE_SKILL:
