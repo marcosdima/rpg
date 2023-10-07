@@ -1,0 +1,15 @@
+{
+    "HUMANKIND": {
+        "HUMAN": {
+            "HP": 100,
+            "MP": 10,
+            "STATS_NUMBER": 4,
+            "DefaultSkills": [
+                {
+                    "Name": "HIT",
+                    "Type": "SIMPLE_SKILL"
+                }
+            ]
+        }
+    }
+}

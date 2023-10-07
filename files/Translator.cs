@@ -6,6 +6,7 @@ public class Translator {
     private const string infoPath = basePath +"/info";
     private const string itemPath = basePath + "/items.json";
     private const string skillPath = basePath + "/skills.json";
+    private const string speciesPath = basePath + "/species.json";
 
     // Properties.
     public string InfoPath { get => infoPath + "/" + lang + ".json"; }
@@ -14,7 +15,7 @@ public class Translator {
         this.lang = lang;
     }
 
-    private JsonElement GetJsonObject(string path, string target) {
+    private JsonElement GetJsonElement(string path, string target) {
         string jsonString = File.ReadAllText(path);
         JsonDocument doc = JsonDocument.Parse(jsonString);
         JsonElement root = doc.RootElement;
@@ -30,6 +31,7 @@ public class Translator {
         return actualObject;
     }
 
+    // MODIFIERS //
     public List<Modifier> GetModifiers(List<ModifierStat> modifierTypes) {
         List<Modifier> modifiers = new List<Modifier>();
         
@@ -50,6 +52,51 @@ public class Translator {
         return modifiers;
     }
 
+    // ITEMS //
+    public ItemDescription GetItemDescription(ItemReference target) {
+        string root = "Items.";
+        JsonElement element = this.GetJsonElement(InfoPath, root + target.ToString());
+        ItemDescription result = JsonSerializer.Deserialize<ItemDescription>(element.GetRawText()) ?? new ItemDescription();
+        return result;
+    }
+
+    public Item GetItem(ItemReference target) {
+        JsonElement element = this.GetJsonElement(itemPath, target.ToString());
+
+        ItemStats? stats = JsonSerializer.Deserialize<ItemStats>(element.GetRawText());
+
+        if (target.Category == ItemCategory.RECOVERY) return new Recovery(stats?.Attribute ?? Attribute.HP, stats?.Power ?? 0);
+        
+        // If doesn't find a proper category, returns a default item...
+        Console.WriteLine("No category found...");
+        return new Recovery(Attribute.HP, 0);
+    }
+
+    // SKILLS //
+    public LogicSkill GetLogicSkill(SkillReference target) {
+        LogicSkill result;
+
+        JsonElement element = this.GetJsonElement(skillPath, target.ToString());
+        SkillStats? stats = JsonSerializer.Deserialize<SkillStats>(element.GetRawText());
+
+        // Sets a dictionary to instantiate the skill...
+        Dictionary<Modifier, int> modifiers = this.GetSkillModifiers(stats?.Modifiers ?? new List<ModifierStat>());
+
+        switch (target.Type) {
+            case SkillCategory.SIMPLE_SKILL:
+                result = new SimpleSkill(stats?.Attribute ?? Attribute.HP, stats?.Uses ?? 0, modifiers);
+                break;
+            default:
+                Console.WriteLine("Error: Skill doesn't match any 'SkillCategory'");
+                Console.WriteLine(target);
+                // Null result.
+                result = new SimpleSkill(Attribute.HP, 0, modifiers);
+                break;
+        }
+
+        return result;
+    }
+
     public Dictionary<Modifier, int> GetSkillModifiers(List<ModifierStat> modifierTypes) {
         Dictionary<Modifier, int> modifiers = new Dictionary<Modifier, int>();
         
@@ -68,45 +115,22 @@ public class Translator {
         return modifiers;
     }
 
-    public ItemDescription GetItemDescription(ItemReference target) {
-        string root = "Items.";
-        JsonElement element = this.GetJsonObject(InfoPath, root + target.ToString());
-        ItemDescription result = JsonSerializer.Deserialize<ItemDescription>(element.GetRawText()) ?? new ItemDescription();
-        return result;
-    }
+    // SPECIES //
+    public Species GetSpecies(Race race, SpeciesName species) {
+        Species result;
+        int nullValue = 1;
 
-    public Item GetItem(ItemReference target) {
-        JsonElement element = this.GetJsonObject(itemPath, target.ToString());
+        // Gets the info from the json...
+        string path = race + "." + species;
+        JsonElement jsonElement = this.GetJsonElement(speciesPath, path);
+        SpeciesStats? stats = JsonSerializer.Deserialize<SpeciesStats>(jsonElement.GetRawText());
 
-        ItemStats? stats = JsonSerializer.Deserialize<ItemStats>(element.GetRawText());
+        // Sets the skill list...
+        List<LogicSkill> skills = new List<LogicSkill>();
+        foreach (SkillReferenceJSON reference in stats?.DefaultSkills ?? new List<SkillReferenceJSON>()) skills.Add(this.GetLogicSkill(reference.ToReference()));
 
-        if (target.Category == ItemCategory.RECOVERY) return new Recovery(stats?.Attribute ?? Attribute.HP, stats?.Power ?? 0);
-        
-        // If doesn't find a proper category, returns a default item...
-        Console.WriteLine("No category found...");
-        return new Recovery(Attribute.HP, 0);
-    }
-
-    public LogicSkill GetLogicSkill(SkillReference target) {
-        LogicSkill result;
-
-        JsonElement element = this.GetJsonObject(skillPath, target.ToString());
-        SkillStats? stats = JsonSerializer.Deserialize<SkillStats>(element.GetRawText());
-
-        // Sets a dictionary to instantiate the skill...
-        Dictionary<Modifier, int> modifiers = this.GetSkillModifiers(stats?.Modifiers ?? new List<ModifierStat>());
-
-        switch (target.Type) {
-            case SkillCategory.SIMPLE_SKILL:
-                result = new SimpleSkill(stats?.Attribute ?? Attribute.HP, stats?.Uses ?? 0, modifiers);
-                break;
-            default:
-                Console.WriteLine("Error: Skill doesn't match any 'SkillCategory'");
-                Console.WriteLine(target);
-                // Null result.
-                result = new SimpleSkill(Attribute.HP, 0, modifiers);
-                break;
-        }
+        // Instantiate the especies.
+        result = new Species(race, species, stats?.HP ?? nullValue, stats?.MP ?? nullValue, stats?.STATS_NUMBER ?? nullValue, skills);
 
         return result;
     }

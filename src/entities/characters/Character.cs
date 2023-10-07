@@ -41,7 +41,7 @@ public class Character : LogicEntity, IExp, IEntity {
         this.attributeHandler = new AttributeHandler(this.baseAttributes);
 
         // Adds the default number of upgrades.
-        this.attributeHandler.AddUpgrades(this.species.GetDefaultStatsNumber());
+        this.attributeHandler.AddUpgrades(this.species.STATS_NUMBER);
 
         // Upgrades the stats randomly.
         Attribute[] attributes = (Attribute[]) Enum.GetValues(typeof(Attribute));
@@ -55,9 +55,9 @@ public class Character : LogicEntity, IExp, IEntity {
         }
 
         // Sets brutally HP and MP.
-        this.attributeHandler.AddUpgrades(this.species.GetHP() + this.species.GetMP());
-        this.attributeHandler.UpgradeAttribute(Attribute.HP, this.species.GetHP());
-        this.attributeHandler.UpgradeAttribute(Attribute.MP, this.species.GetMP());
+        this.attributeHandler.AddUpgrades(this.species.HP + this.species.MP);
+        this.attributeHandler.UpgradeAttribute(Attribute.HP, this.species.HP);
+        this.attributeHandler.UpgradeAttribute(Attribute.MP, this.species.MP);
     }
     private void SetStatus() {
         this.status = new Status(this.baseAttributes);
