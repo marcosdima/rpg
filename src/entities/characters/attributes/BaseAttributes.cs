@@ -15,7 +15,7 @@ public class BaseAttributes {
         // Gets the values of the Attribute enum.
         Attribute[] attributes = (Attribute[]) Enum.GetValues(typeof(Attribute));
         foreach (Attribute attr in attributes) {
-            this.attributes.Add(attr, 0);
+            this.attributes.Add(attr, 1);
         }
     }
     private void ModifyAttribute(Attribute attribute, int magnitude) {
