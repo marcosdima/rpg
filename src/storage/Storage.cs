@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 
 public class Storage {
     private List<Slot> space;

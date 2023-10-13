@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 
 public class Equipment : Item, IEquipable {
     private int maxUses = 0;   

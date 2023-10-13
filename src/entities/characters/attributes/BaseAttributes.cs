@@ -22,7 +22,7 @@ public class BaseAttributes {
         // If the key exists, adds the magnitude.
         if (this.attributes.ContainsKey(attribute)) 
             // The attributes must be positive or 0.
-            this.attributes[attribute] = Math.Max(this.attributes[attribute] += magnitude, 0);
+            this.attributes[attribute] = .Max(this.attributes[attribute] += magnitude, 0);
         // This never should happen.
         else Console.WriteLine("The attribute ", attribute, " doesn't exist...");
     }

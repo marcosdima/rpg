@@ -1,3 +1,5 @@
+using System;
+
 public class Slot : ISlot {
     private static int slots = 1;
     private ItemReference content;
