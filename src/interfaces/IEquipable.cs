@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public interface IEquipable {
     public int UsesLeft { get; }
     public int MaxUses { get; }

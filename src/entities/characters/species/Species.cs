@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class Species {
 
     public int HP { get; }

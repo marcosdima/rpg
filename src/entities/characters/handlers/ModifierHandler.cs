@@ -1,4 +1,5 @@
 // Tengo que ver que hacer con la aplicación de los modificadores, LOL.
+using System.Collections.Generic;
 
 public class ModifierHandler {
     // This list is only to keep tracked the modifiers which were applied.

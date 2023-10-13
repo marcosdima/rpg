@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class Status {
     private Dictionary<Attribute, StatusField> statusValues;
 

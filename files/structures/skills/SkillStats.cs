@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using System.Collections.Generic;
 
 public class SkillStats {
     public int Uses { get; set; } = 1;

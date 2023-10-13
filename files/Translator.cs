@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Collections.Generic;
 
 public class Translator {
     private Language lang;

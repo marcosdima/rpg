@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class Armor : IArmor {
     private Dictionary<EquipmentType, Equipment> armor;
     private Character wearer;

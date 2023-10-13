@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class SpeciesStats {
     public int HP { get; set; } = 1;
     public int MP { get; set; } = 1;

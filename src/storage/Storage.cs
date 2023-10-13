@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class Storage {
     private List<Slot> space;
     private int totalSpace;

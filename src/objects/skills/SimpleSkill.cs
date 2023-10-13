@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class SimpleSkill : LogicSkill {
     private int applies;
     private Dictionary<Modifier, int> modifiers;
